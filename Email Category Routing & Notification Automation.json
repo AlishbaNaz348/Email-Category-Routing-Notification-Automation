@@ -1,0 +1,630 @@
+{
+  "name": "Email Category Routing & Notification Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {}
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -496,
+        -608
+      ],
+      "id": "8843221e-70c7-41c2-b125-d5674478c2de",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "siwCzPIHxQGvQ5ZR",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Subject }}",
+                    "rightValue": "urgent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "6b2397b9-955f-4fa3-9701-ba74039afd39"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "5a24a7ac-f07a-4edb-aa9b-761bdbbbce9d",
+                    "leftValue": "={{ $json.Subject }}",
+                    "rightValue": "Sales",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "bfe36768-ed71-455b-8d4d-5743489a0bf3",
+                    "leftValue": "={{ $json.Subject }}",
+                    "rightValue": "Support",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "691913c4-8027-414a-9b88-542337360234",
+                    "leftValue": "={{ $json.Subject }}",
+                    "rightValue": "General",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        -640
+      ],
+      "id": "fe067f59-f7b4-4f96-b34d-759d7547845b",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "sendTo": "alishbafar11@gmail.com",
+        "subject": "urgent email",
+        "emailType": "text",
+        "message": "=Hi Team,  An urgent email has been received and requires attention.  Subject: {{ $json.Subject }} From: {{ $json.From }}  Please review the email and take the necessary action as soon as possible.  Regards, Automation System",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        -832
+      ],
+      "id": "412cc804-33de-4105-8acd-b5a0a98f71fc",
+      "name": "Send a message",
+      "webhookId": "81c180d8-a337-47eb-a2b0-2b011e02d537",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "siwCzPIHxQGvQ5ZR",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "alishbafar12@gmail.com",
+        "subject": "New Sales Lead Received",
+        "emailType": "text",
+        "message": "=Hi Sales Team,  A new Sales-related email has been received and should be reviewed.  Email Subject: {{ $json.Subject }} From: {{ $json.Fro }}  Please review the inquiry and follow up with the sender if it looks like a potential sales opportunity.  Regards,",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        -608
+      ],
+      "id": "2ec42b43-370c-474a-af0b-4c9883496f16",
+      "name": "Send a message1",
+      "webhookId": "6dc334a3-ed35-4630-9c76-fdefabbac3c2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "siwCzPIHxQGvQ5ZR",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "alishbafar11@gmail.com",
+        "subject": "New Support Request Received",
+        "emailType": "text",
+        "message": "=Hi Support Team,  A new customer support email has been received and requires review.  Email Subject: {{ $json.Subject }} From: {{ $json.From }}  Please review the request and respond to the customer as soon as possible.  Regards,",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        -416
+      ],
+      "id": "1ed2864b-5291-4446-9940-28e1fc077da1",
+      "name": "Send a message2",
+      "webhookId": "35adb4dd-a505-4f24-881d-8b00286a34f8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "siwCzPIHxQGvQ5ZR",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pwxaKuKD3j-vYLlKKOHlSMSkerOSNQD0MIEhWJiDnz4",
+          "mode": "list",
+          "cachedResultName": "n8n sheet record",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pwxaKuKD3j-vYLlKKOHlSMSkerOSNQD0MIEhWJiDnz4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pwxaKuKD3j-vYLlKKOHlSMSkerOSNQD0MIEhWJiDnz4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "9 march",
+            "Sender": "Alishba",
+            "Subject": "General Lead",
+            "Message": "Hey! respond to the mail"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sender",
+              "displayName": "Sender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        144,
+        -240
+      ],
+      "id": "da05c5cc-7855-468a-97ab-923e144bbc4f",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6n66CLqLmoSuVM9p",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk",
+          "mode": "list",
+          "cachedResultName": "gmail1-sheetn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Email Id",
+              "displayName": "Email Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Thread id",
+              "displayName": "Thread id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        -832
+      ],
+      "id": "1d74b193-fc0f-40bf-8872-31370aa6614d",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6n66CLqLmoSuVM9p",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk",
+          "mode": "list",
+          "cachedResultName": "gmail1-sheetn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email Id": "2003",
+            "Thread id": "789",
+            "Subject": "Sales enquiry",
+            "message": "Hi check inbox"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Email Id",
+              "displayName": "Email Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Thread id",
+              "displayName": "Thread id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        528,
+        -608
+      ],
+      "id": "a49db4be-4bf9-402b-a57b-5301f537c658",
+      "name": "Append row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6n66CLqLmoSuVM9p",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk",
+          "mode": "list",
+          "cachedResultName": "gmail1-sheetn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SJW7VX120gWZd9BzPdUD0NvMk5NETXRfe-cTXzqO6Mk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Email Id",
+              "displayName": "Email Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Thread id",
+              "displayName": "Thread id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        -416
+      ],
+      "id": "0ae0b717-94bc-46d8-b94a-0a23a64c2ef2",
+      "name": "Append row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6n66CLqLmoSuVM9p",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "279bdc39-b4c8-4606-a9db-53bfe31565b1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "29c0c812093bd990176a89629bc825d2f9044ec9f8c68b39833ee41b560c0d4c"
+  },
+  "nodeGroups": [],
+  "id": "OQZm1gwEzqOQ2Ofr",
+  "tags": []
+}
